@@ -1,0 +1,25 @@
+{
+  "name": "Score7",
+  "short_name": "Score7",
+  "description": "A fast Flip7 scoring app built for mobile play.",
+  "start_url": "./index.html?v=2026052405",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "./score7-icon.svg?v=2026052405",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./score7-icon.svg?v=2026052405",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
