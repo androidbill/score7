@@ -10,9 +10,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Score7" />
-<link rel="manifest" href="./manifest.webmanifest?v=2026052405" />
-<link rel="icon" href="./score7-icon.svg?v=2026052405" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="./score7-icon.svg?v=2026052405" />
+<link rel="manifest" href="./manifest.webmanifest?v=2026052407" />
+<link rel="icon" href="./score7-icon.svg?v=2026052407" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="./score7-icon-180.png?v=2026052407" />
+<script src="./iro.min.js?v=2026052407"></script>
 <style>
 :root {
   --bg: #111827;
@@ -123,11 +124,12 @@ button { cursor: pointer; }
   min-width: 0;
   min-height: 98px;
   padding: 8px 6px;
+  position: relative;
   display: grid;
   grid-template-rows: auto 1fr auto;
   align-items: center;
   text-align: center;
-  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  background: linear-gradient(180deg, var(--player-color, var(--panel-2)), var(--player-color-dark, var(--panel)));
 }
 .player-card.active {
   border-color: var(--gold);
@@ -144,6 +146,18 @@ button { cursor: pointer; }
   white-space: nowrap;
   font-size: 13px;
   font-weight: 900;
+  padding: 0 21px;
+}
+.player-color-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 7px;
+  border: 2px solid rgba(255,255,255,0.7);
+  background: var(--player-color, var(--panel-3));
+  box-shadow: 0 1px 4px rgba(0,0,0,0.28);
 }
 .player-score {
   font-size: clamp(34px, 10vw, 58px);
@@ -482,6 +496,49 @@ button { cursor: pointer; }
 .btn-secondary { background: var(--panel-2); color: var(--text); border: 1px solid var(--border) !important; }
 .btn-primary { background: var(--green); color: #fff; }
 .btn-danger { background: var(--danger); color: #fff; }
+#iro-picker {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 2px;
+  min-height: 270px;
+}
+.color-hex {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: .8px;
+}
+.color-preview {
+  min-height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.08) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+  padding: 6px;
+  margin-top: 12px;
+}
+#colors-modal-wrap .modal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+}
+#colors-modal-wrap .modal-actions {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(20,34,51,0), rgba(20,34,51,0.96) 22%, rgba(20,34,51,1));
+  padding-top: 10px;
+  margin-top: 2px;
+}
+@media (max-height: 760px) {
+  #iro-picker { min-height: 240px; }
+}
 .starter-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -632,7 +689,7 @@ button { cursor: pointer; }
 <div class="modal-wrap" id="about-modal-wrap">
   <div class="modal">
     <h2>Score7</h2>
-    <p class="sub" id="app-version-label">Version 2026.05.24.05</p>
+    <p class="sub" id="app-version-label">Version 2026.05.24.07</p>
     <div class="note">A fast Flip7 scoring app built for mobile play.</div>
     <div class="modal-actions">
       <button class="btn-primary" data-close="about-modal-wrap">Close</button>
@@ -640,11 +697,25 @@ button { cursor: pointer; }
   </div>
 </div>
 
+<div class="modal-wrap" id="colors-modal-wrap">
+  <div class="modal">
+    <h2>Player Color</h2>
+    <div class="color-preview" id="player-color-preview">Player</div>
+    <div id="iro-picker"></div>
+    <div class="color-hex" id="color-hex-readout">#E8332A</div>
+    <div class="modal-actions">
+      <button class="btn-secondary" data-close="colors-modal-wrap">Close</button>
+      <button class="btn-danger" id="reset-color-btn" type="button">Reset</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (() => {
-  const APP_VERSION = '2026.05.24.05';
+  const APP_VERSION = '2026.05.24.07';
   const STORAGE_KEY = 'score7_v1';
   const DEFAULT_TARGET_SCORE = 200;
+  const DEFAULT_PLAYER_COLORS = ['#E8332A', '#1A6FE8', '#4FAF5F', '#D08015', '#9448CC', '#D13C82'];
   const KEYPAD_VALUES = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '00', '0', 'back'];
 
   const els = {
@@ -679,7 +750,11 @@ button { cursor: pointer; }
     shareResultsBtn: document.getElementById('share-results-btn'),
     playAgainBtn: document.getElementById('play-again-btn'),
     aboutModalWrap: document.getElementById('about-modal-wrap'),
-    appVersionLabel: document.getElementById('app-version-label')
+    appVersionLabel: document.getElementById('app-version-label'),
+    colorsModalWrap: document.getElementById('colors-modal-wrap'),
+    playerColorPreview: document.getElementById('player-color-preview'),
+    colorHexReadout: document.getElementById('color-hex-readout'),
+    resetColorBtn: document.getElementById('reset-color-btn')
   };
 
   function defaultState() {
@@ -688,6 +763,7 @@ button { cursor: pointer; }
       inGame: false,
       players: [],
       playerHistory: [],
+      playerColors: {},
       targetScore: DEFAULT_TARGET_SCORE,
       starterIndex: 0,
       activeIndex: 0,
@@ -731,6 +807,10 @@ button { cursor: pointer; }
     next.players = uniquePlayerNames(next.players).slice(0, 6);
     next.playerHistory = uniquePlayerNames([...next.playerHistory, ...next.players]);
     next.scores = next.players.map((_, i) => Number(next.scores[i] || 0));
+    if (!next.playerColors || typeof next.playerColors !== 'object') next.playerColors = {};
+    Object.keys(next.playerColors).forEach(name => {
+      next.playerColors[name] = normalizeHex(next.playerColors[name], '#1A6FE8');
+    });
     next.targetScore = clamp(Number(next.targetScore) || DEFAULT_TARGET_SCORE, 1, 9999);
     const lastPlayerIndex = Math.max(0, next.players.length - 1);
     next.starterIndex = clamp(Number(next.starterIndex) || 0, 0, lastPlayerIndex);
@@ -750,6 +830,29 @@ button { cursor: pointer; }
     persist();
   }
   function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
+  function normalizeHex(value, fallback) {
+    const hex = String(value || '').trim().toUpperCase();
+    return /^#[0-9A-F]{6}$/.test(hex) ? hex : fallback;
+  }
+  function hexToRgb(hex) {
+    const clean = normalizeHex(hex, '#000000').slice(1);
+    return { r: parseInt(clean.slice(0, 2), 16), g: parseInt(clean.slice(2, 4), 16), b: parseInt(clean.slice(4, 6), 16) };
+  }
+  function rgbToHex(r, g, b) {
+    const part = value => value.toString(16).padStart(2, '0');
+    return `#${part(r)}${part(g)}${part(b)}`.toUpperCase();
+  }
+  function darken(hex, amount = 0.25) {
+    const color = hexToRgb(hex);
+    return rgbToHex(
+      clamp(Math.round(color.r * (1 - amount)), 0, 255),
+      clamp(Math.round(color.g * (1 - amount)), 0, 255),
+      clamp(Math.round(color.b * (1 - amount)), 0, 255)
+    );
+  }
+  function getPlayerColor(name, index) {
+    return normalizeHex(state.playerColors[name], DEFAULT_PLAYER_COLORS[index % DEFAULT_PLAYER_COLORS.length]);
+  }
   function safeText(value, fallback = '') {
     const text = String(value || '').trim();
     return text || fallback;
@@ -899,6 +1002,9 @@ button { cursor: pointer; }
     setState(s => {
       s.players = names;
       s.playerHistory = uniquePlayerNames([...names, ...s.playerHistory]);
+      names.forEach((name, index) => {
+        if (!s.playerColors[name]) s.playerColors[name] = DEFAULT_PLAYER_COLORS[index % DEFAULT_PLAYER_COLORS.length];
+      });
       s.starterIndex = clamp(s.setupDraft.starterIndex, 0, names.length - 1);
       s.targetScore = clamp(Number(s.setupDraft.targetScore) || DEFAULT_TARGET_SCORE, 1, 9999);
       s.activeIndex = s.starterIndex;
@@ -960,16 +1066,55 @@ button { cursor: pointer; }
     `).join('');
     showModal('win-modal-wrap');
   }
+  let activeColorPlayerIndex = 0;
+  let iroPicker = null;
+  function ensureColorPicker() {
+    if (iroPicker || typeof iro === 'undefined') return;
+    iroPicker = new iro.ColorPicker('#iro-picker', {
+      width: 250,
+      color: getPlayerColor(state.players[activeColorPlayerIndex], activeColorPlayerIndex),
+      borderWidth: 1,
+      borderColor: '#25415f',
+      layout: [
+        { component: iro.ui.Wheel },
+        { component: iro.ui.Slider, options: { sliderType: 'value' } }
+      ]
+    });
+    iroPicker.on('color:change', (color) => {
+      const name = state.players[activeColorPlayerIndex];
+      if (!name) return;
+      setState(s => { s.playerColors[name] = color.hexString.toUpperCase(); });
+      syncColorPickerUI();
+    });
+  }
+  function syncColorPickerUI() {
+    const name = state.players[activeColorPlayerIndex];
+    if (!name) return;
+    const color = getPlayerColor(name, activeColorPlayerIndex);
+    els.playerColorPreview.textContent = name;
+    els.playerColorPreview.style.background = color;
+    els.colorHexReadout.textContent = color;
+    if (iroPicker && iroPicker.color.hexString.toUpperCase() !== color) iroPicker.color.set(color);
+  }
+  function openColorPicker(playerIndex) {
+    activeColorPlayerIndex = playerIndex;
+    showModal('colors-modal-wrap');
+    ensureColorPicker();
+    syncColorPickerUI();
+  }
   function renderScoreboard() {
     els.scoreboard.style.setProperty('--player-count', state.players.length);
     const winner = getWinnerIndex();
-    els.scoreboard.innerHTML = state.players.map((name, index) => `
-      <div class="card player-card ${index === state.activeIndex && winner < 0 ? 'active' : ''} ${index === winner ? 'winner' : ''}">
+    els.scoreboard.innerHTML = state.players.map((name, index) => {
+      const color = getPlayerColor(name, index);
+      return `
+      <div class="card player-card ${index === state.activeIndex && winner < 0 ? 'active' : ''} ${index === winner ? 'winner' : ''}" style="--player-color:${color}; --player-color-dark:${darken(color)};">
+        <button class="player-color-btn" style="--player-color:${color};" type="button" data-player-color="${index}" aria-label="Change ${escapeHtml(name)} color" title="Change color"></button>
         <div class="player-name">${escapeHtml(name)}</div>
         <div class="player-score">${state.scores[index]}</div>
         <div class="player-meta">${index === state.starterIndex ? 'Starter' : index === state.activeIndex && winner < 0 ? 'Turn' : `${Math.max(0, state.targetScore - state.scores[index])} to win`}</div>
       </div>
-    `).join('');
+    `; }).join('');
   }
   function renderCalculator() {
     els.scoreReadout.textContent = state.currentScore;
@@ -1043,6 +1188,10 @@ button { cursor: pointer; }
   els.minusBtn.addEventListener('click', () => setScore(scoreValue() - 1));
   els.clearBtn.addEventListener('click', () => setScore(0));
   els.submitBtn.addEventListener('click', submitScore);
+  els.scoreboard.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-player-color]');
+    if (btn) openColorPicker(Number(btn.dataset.playerColor));
+  });
   els.closePlayersBtn.addEventListener('click', () => {
     if (state.inGame) showScreen('game');
     else {
@@ -1080,6 +1229,12 @@ button { cursor: pointer; }
     renderSetup();
   });
   els.startGameBtn.addEventListener('click', saveSetup);
+  els.resetColorBtn.addEventListener('click', () => {
+    const name = state.players[activeColorPlayerIndex];
+    if (!name) return;
+    setState(s => { s.playerColors[name] = DEFAULT_PLAYER_COLORS[activeColorPlayerIndex % DEFAULT_PLAYER_COLORS.length]; });
+    syncColorPickerUI();
+  });
   els.playAgainBtn.addEventListener('click', resetGame);
   els.shareResultsBtn.addEventListener('click', shareResults);
 
@@ -1091,7 +1246,7 @@ button { cursor: pointer; }
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=2026052405', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('./service-worker.js?v=2026052407', { updateViaCache: 'none' })
       .then(registration => registration.update().catch(() => {}))
       .catch(error => console.warn('Score7 service worker registration failed.', error));
   });

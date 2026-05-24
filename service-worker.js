@@ -1,9 +1,14 @@
-const CACHE_NAME = 'score7-2026052405';
+const CACHE_NAME = 'score7-2026052407';
 const APP_SHELL = [
   './',
-  './index.html?v=2026052405',
-  './manifest.webmanifest?v=2026052405',
-  './score7-icon.svg?v=2026052405'
+  './index.html?v=2026052407',
+  './manifest.webmanifest?v=2026052407',
+  './score7-icon.svg?v=2026052407',
+  './score7-icon-180.png?v=2026052407',
+  './score7-icon-192.png?v=2026052407',
+  './score7-icon-512.png?v=2026052407',
+  './score7-icon-maskable-512.png?v=2026052407',
+  './iro.min.js?v=2026052407'
 ];
 
 self.addEventListener('install', (event) => {
@@ -42,14 +47,19 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (event.request.mode === 'navigate') {
-    event.respondWith(networkFirst(event.request, './index.html?v=2026052405'));
+    event.respondWith(networkFirst(event.request, './index.html?v=2026052407'));
     return;
   }
 
   const isShell =
     url.pathname.endsWith('/index.html') ||
     url.pathname.endsWith('/manifest.webmanifest') ||
-    url.pathname.endsWith('/score7-icon.svg');
+    url.pathname.endsWith('/score7-icon.svg') ||
+    url.pathname.endsWith('/score7-icon-180.png') ||
+    url.pathname.endsWith('/score7-icon-192.png') ||
+    url.pathname.endsWith('/score7-icon-512.png') ||
+    url.pathname.endsWith('/score7-icon-maskable-512.png') ||
+    url.pathname.endsWith('/iro.min.js');
 
   if (isShell) {
     event.respondWith(networkFirst(event.request));
