@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Score7" />
-<link rel="manifest" href="./manifest.webmanifest?v=2026052507" />
-<link rel="icon" href="./score7-icon.svg?v=2026052507" type="image/svg+xml" />
-<script src="./iro.min.js?v=2026052507"></script>
+<link rel="manifest" href="./manifest.webmanifest?v=2026052508" />
+<link rel="icon" href="./score7-icon.svg?v=2026052508" type="image/svg+xml" />
+<script src="./iro.min.js?v=2026052508"></script>
 <style>
 :root {
   --bg: #111827;
@@ -851,7 +851,7 @@ button { cursor: pointer; }
 
 <script>
 (() => {
-  const APP_VERSION = '2026.05.25.07';
+  const APP_VERSION = '2026.05.25.08';
   const STORAGE_KEY = 'score7_v1';
   const THEME_KEY = 'score7_theme';
   const INSTALL_DISMISSED_KEY = 'score7_install_dismissed';
@@ -1578,7 +1578,7 @@ button { cursor: pointer; }
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=2026052507', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('./service-worker.js?v=2026052508', { updateViaCache: 'none' })
       .then(registration => registration.update().catch(() => {}))
       .catch(error => console.warn('Score7 service worker registration failed.', error));
   });
