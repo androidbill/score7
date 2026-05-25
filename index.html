@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Score7" />
-<link rel="manifest" href="./manifest.webmanifest?v=2026052506" />
-<link rel="icon" href="./score7-icon.svg?v=2026052506" type="image/svg+xml" />
-<script src="./iro.min.js?v=2026052506"></script>
+<link rel="manifest" href="./manifest.webmanifest?v=2026052507" />
+<link rel="icon" href="./score7-icon.svg?v=2026052507" type="image/svg+xml" />
+<script src="./iro.min.js?v=2026052507"></script>
 <style>
 :root {
   --bg: #111827;
@@ -689,7 +689,6 @@ button { cursor: pointer; }
       <button data-action="rules">Rules</button>
       <button data-action="themes">Themes</button>
       <button data-action="players">Players</button>
-      <button data-action="setup">Setup Game</button>
       <button data-action="share">Share</button>
       <button data-action="restart">New Game</button>
       <button data-action="about">About</button>
@@ -852,7 +851,7 @@ button { cursor: pointer; }
 
 <script>
 (() => {
-  const APP_VERSION = '2026.05.25.06';
+  const APP_VERSION = '2026.05.25.07';
   const STORAGE_KEY = 'score7_v1';
   const THEME_KEY = 'score7_theme';
   const INSTALL_DISMISSED_KEY = 'score7_install_dismissed';
@@ -1468,7 +1467,6 @@ button { cursor: pointer; }
     if (action === 'rules') showModal('rules-modal-wrap');
     if (action === 'themes') showModal('themes-modal-wrap');
     if (action === 'players') showScreen('players');
-    if (action === 'setup') beginNewGameSetup();
     if (action === 'share') shareApp();
     if (action === 'restart') beginNewGameSetup();
     if (action === 'about') showModal('about-modal-wrap');
@@ -1580,7 +1578,7 @@ button { cursor: pointer; }
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=2026052506', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('./service-worker.js?v=2026052507', { updateViaCache: 'none' })
       .then(registration => registration.update().catch(() => {}))
       .catch(error => console.warn('Score7 service worker registration failed.', error));
   });
