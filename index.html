@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Score7" />
-<link rel="manifest" href="./manifest.webmanifest?v=2026052505" />
-<link rel="icon" href="./score7-icon.svg?v=2026052505" type="image/svg+xml" />
-<script src="./iro.min.js?v=2026052505"></script>
+<link rel="manifest" href="./manifest.webmanifest?v=2026052506" />
+<link rel="icon" href="./score7-icon.svg?v=2026052506" type="image/svg+xml" />
+<script src="./iro.min.js?v=2026052506"></script>
 <style>
 :root {
   --bg: #111827;
@@ -232,7 +232,7 @@ button { cursor: pointer; }
 }
 .turn-card {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   gap: 10px;
   align-items: center;
   padding: 10px 12px;
@@ -264,6 +264,22 @@ button { cursor: pointer; }
   padding: 8px 11px;
   font-size: 12px;
   font-weight: 900;
+}
+.undo-btn {
+  min-height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--danger);
+  padding: 0 12px;
+  color: var(--danger);
+  background: var(--panel-2);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .7px;
+}
+.undo-btn:disabled {
+  border-color: var(--border);
+  color: var(--muted);
+  opacity: .55;
 }
 .calc-card {
   padding: 8px;
@@ -670,13 +686,11 @@ button { cursor: pointer; }
       <button class="icon-btn" id="menu-btn" type="button" aria-label="Open menu">...</button>
     </div>
     <div class="dropdown" id="menu-dropdown">
-      <button data-action="install">Install App</button>
       <button data-action="rules">Rules</button>
       <button data-action="themes">Themes</button>
       <button data-action="players">Players</button>
       <button data-action="setup">Setup Game</button>
       <button data-action="share">Share</button>
-      <button data-action="undo">Undo Last Score</button>
       <button data-action="restart">New Game</button>
       <button data-action="about">About</button>
     </div>
@@ -726,6 +740,7 @@ button { cursor: pointer; }
         <div class="turn-name" id="turn-name">Set up players</div>
       </div>
       <div class="round-pill" id="round-label">Round 1</div>
+      <button class="undo-btn" id="undo-btn" type="button">UNDO</button>
     </div>
 
     <div class="calc-card card">
@@ -837,7 +852,7 @@ button { cursor: pointer; }
 
 <script>
 (() => {
-  const APP_VERSION = '2026.05.25.05';
+  const APP_VERSION = '2026.05.25.06';
   const STORAGE_KEY = 'score7_v1';
   const THEME_KEY = 'score7_theme';
   const INSTALL_DISMISSED_KEY = 'score7_install_dismissed';
@@ -894,6 +909,7 @@ button { cursor: pointer; }
     scoreboard: document.getElementById('scoreboard'),
     turnName: document.getElementById('turn-name'),
     roundLabel: document.getElementById('round-label'),
+    undoBtn: document.getElementById('undo-btn'),
     scoreReadout: document.getElementById('score-readout'),
     scoreGrid: document.getElementById('score-grid'),
     minusBtn: document.getElementById('minus-btn'),
@@ -1120,8 +1136,6 @@ button { cursor: pointer; }
     const dismissed = readStorage('sessionStorage', INSTALL_DISMISSED_KEY) === 'true';
     const showCard = !state.inGame && !isStandalone() && !dismissed;
     els.installCard.classList.toggle('hidden', !showCard);
-    const installMenu = els.menuDropdown.querySelector('[data-action="install"]');
-    if (installMenu) installMenu.classList.toggle('hidden', isStandalone());
   }
   function installHelpText() {
     const ua = navigator.userAgent.toLowerCase();
@@ -1433,6 +1447,7 @@ button { cursor: pointer; }
     const active = state.players[state.activeIndex] || 'Set up players';
     els.turnName.textContent = getWinnerIndex() >= 0 ? 'Game over' : active;
     els.roundLabel.textContent = `Round ${currentRound()}`;
+    els.undoBtn.disabled = !state.history.length;
   }
   function render() {
     renderGame();
@@ -1450,13 +1465,11 @@ button { cursor: pointer; }
     if (!btn) return;
     const action = btn.dataset.action;
     closeAllMenus();
-    if (action === 'install') installApp();
     if (action === 'rules') showModal('rules-modal-wrap');
     if (action === 'themes') showModal('themes-modal-wrap');
     if (action === 'players') showScreen('players');
     if (action === 'setup') beginNewGameSetup();
     if (action === 'share') shareApp();
-    if (action === 'undo') undoLastScore();
     if (action === 'restart') beginNewGameSetup();
     if (action === 'about') showModal('about-modal-wrap');
   });
@@ -1474,6 +1487,7 @@ button { cursor: pointer; }
   els.minusBtn.addEventListener('click', () => setScore(scoreValue() - 1));
   els.clearBtn.addEventListener('click', () => setScore(0));
   els.submitBtn.addEventListener('click', submitScore);
+  els.undoBtn.addEventListener('click', undoLastScore);
   els.scoreboard.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-player-color]');
     if (btn) openColorPicker(Number(btn.dataset.playerColor));
@@ -1566,7 +1580,7 @@ button { cursor: pointer; }
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=2026052505', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('./service-worker.js?v=2026052506', { updateViaCache: 'none' })
       .then(registration => registration.update().catch(() => {}))
       .catch(error => console.warn('Score7 service worker registration failed.', error));
   });
