@@ -5,15 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Score7</title>
 <meta name="description" content="Score7 is a fast Flip7 scoring app built for mobile play." />
-<meta name="theme-color" content="#111827" />
+<meta name="theme-color" id="theme-color-meta" content="#111827" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Score7" />
-<link rel="manifest" href="./manifest.webmanifest?v=2026052407" />
-<link rel="icon" href="./score7-icon.svg?v=2026052407" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="./score7-icon-180.png?v=2026052407" />
-<script src="./iro.min.js?v=2026052407"></script>
+<link rel="manifest" href="./manifest.webmanifest?v=2026052505" />
+<link rel="icon" href="./score7-icon.svg?v=2026052505" type="image/svg+xml" />
+<script src="./iro.min.js?v=2026052505"></script>
 <style>
 :root {
   --bg: #111827;
@@ -30,6 +29,26 @@
   --radius: 14px;
   --shadow: 0 10px 26px rgba(0,0,0,0.24);
 }
+body[data-theme="classic"] { --bg:#f7f2e7; --panel:#fffdf7; --panel-2:#f3efe4; --panel-3:#e8e3d8; --text:#17211f; --muted:#596966; --border:#ded6c5; --green:#123c38; --gold:#d9aa43; --danger:#c85d49; --accent:#2d7697; }
+body[data-theme="evergreen"] { --bg:#f1f3e8; --panel:#fffdf2; --panel-2:#eef1df; --panel-3:#e1e9d8; --text:#17211d; --muted:#607068; --border:#d6d4bd; --green:#18443b; --gold:#c49a3a; --danger:#d56945; --accent:#2f6f73; }
+body[data-theme="cranberry"] { --bg:#fff0ea; --panel:#fff9f4; --panel-2:#f3e4da; --panel-3:#ead8ce; --text:#241414; --muted:#705a55; --border:#ead2c9; --green:#8d2638; --gold:#d6a94f; --danger:#b7583f; --accent:#4c7c82; }
+body[data-theme="harbor"] { --bg:#edf7f9; --panel:#fbfeff; --panel-2:#e8f2f5; --panel-3:#dae9ef; --text:#10202b; --muted:#526673; --border:#cbdde4; --green:#1d5b6c; --gold:#d3a94d; --danger:#cf765e; --accent:#3c7fac; }
+body[data-theme="moss"] { --bg:#f3f6e9; --panel:#fffff7; --panel-2:#edf2df; --panel-3:#e2ebd2; --text:#172016; --muted:#5c6b55; --border:#d6ddc7; --green:#315d36; --gold:#c9a33a; --danger:#b96a4d; --accent:#497c78; }
+body[data-theme="amethyst"] { --bg:#f5f1fb; --panel:#fffaff; --panel-2:#eee5f5; --panel-3:#e4d9f0; --text:#16142a; --muted:#5d5972; --border:#d8cdec; --green:#4b3b8f; --gold:#c7a451; --danger:#b85f82; --accent:#4d89ad; }
+body[data-theme="ember"] { --bg:#fff0df; --panel:#fff9f1; --panel-2:#f2e1d0; --panel-3:#ead5c2; --text:#251815; --muted:#725d55; --border:#ebcdbb; --green:#8a4629; --gold:#e0a43a; --danger:#c75c45; --accent:#3f7781; }
+body[data-theme="sage"] { --bg:#ecfff6; --panel:#fbfffc; --panel-2:#e9f4ec; --panel-3:#dbece3; --text:#10231e; --muted:#4f6b61; --border:#c9e8da; --green:#16725f; --gold:#cbbd4a; --danger:#c96b60; --accent:#347fa0; }
+body[data-theme="plum"] { --bg:#f3f0fb; --panel:#fffaff; --panel-2:#ebe4f5; --panel-3:#dfd8ec; --text:#18162a; --muted:#5c5875; --border:#d7cfe8; --green:#3c2b72; --gold:#c9a046; --danger:#b85b77; --accent:#3e78a8; }
+body[data-theme="rose"] { --bg:#fff0fa; --panel:#fff9fd; --panel-2:#f5e4ef; --panel-3:#eed7e6; --text:#2a0920; --muted:#7a4c69; --border:#f0c2df; --green:#b84f82; --gold:#d7b85a; --danger:#d46673; --accent:#5c93b5; }
+body[data-theme="lavender"] { --bg:#f9e9ff; --panel:#fff8ff; --panel-2:#f0e5f7; --panel-3:#e8d9f2; --text:#1f1532; --muted:#65527e; --border:#e2c6f3; --green:#7a5cc7; --gold:#d6b85a; --danger:#d474ad; --accent:#58a7c7; }
+body[data-theme="desert"] { --bg:#fff7d8; --panel:#fffdf2; --panel-2:#f4e8c8; --panel-3:#ebddb9; --text:#24160a; --muted:#70533a; --border:#edcf88; --green:#a85f2a; --gold:#d8a735; --danger:#c96a4d; --accent:#4e87a5; }
+body[data-theme="sky"] { --bg:#f5fbff; --panel:#ffffff; --panel-2:#edf4fb; --panel-3:#dfeaf5; --text:#20213d; --muted:#65678b; --border:#d8e5f1; --green:#36a9c9; --gold:#d8c75c; --danger:#c970a6; --accent:#7d73c9; }
+body[data-theme="polar"] { --bg:#0d1217; --panel:#151d25; --panel-2:#1d2833; --panel-3:#273543; --text:#eef5fb; --muted:#a9b9c6; --border:#2a3845; --green:#7eb6d9; --gold:#d8c76a; --danger:#d98274; --accent:#5f9fc8; }
+body[data-theme="teal-night"] { --bg:#071917; --panel:#102723; --panel-2:#163530; --panel-3:#214840; --text:#eafaf7; --muted:#a8c8c1; --border:#24443e; --green:#2dd4bf; --gold:#f4c95d; --danger:#ef7d66; --accent:#5eb3c7; }
+body[data-theme="violet-night"] { --bg:#160f22; --panel:#251b36; --panel-2:#302342; --panel-3:#3c2e51; --text:#f6efff; --muted:#c9b8df; --border:#493760; --green:#9b6fe8; --gold:#d8b95a; --danger:#d66e9d; --accent:#6aa6c9; }
+body[data-theme="cobalt"] { --bg:#061827; --panel:#0d2438; --panel-2:#14324a; --panel-3:#1b425c; --text:#eef9ff; --muted:#a9c8d9; --border:#1c4a66; --green:#44b3d8; --gold:#d8bd5b; --danger:#d97373; --accent:#5e9fca; }
+body[data-theme="emerald-night"] { --bg:#0b1409; --panel:#142313; --panel-2:#1e321b; --panel-3:#294325; --text:#f4ffe8; --muted:#bdd3b0; --border:#304a25; --green:#78c95f; --gold:#d6d85b; --danger:#d9795c; --accent:#5ab8a5; }
+body[data-theme="jade"] { --bg:#020a05; --panel:#07150c; --panel-2:#102318; --panel-3:#163322; --text:#eaffef; --muted:#9bc6a4; --border:#153522; --green:#54c982; --gold:#b8d96a; --danger:#d57966; --accent:#64b6a6; }
+body[data-theme="citrus"] { --bg:#efffec; --panel:#fbfff7; --panel-2:#edf7e5; --panel-3:#e0efd7; --text:#08140d; --muted:#3d5b49; --border:#c6e7be; --green:#3b8c46; --gold:#c9d94a; --danger:#df8b4f; --accent:#4c9a7d; }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { min-height: 100%; background: var(--bg); color: var(--text); overflow-x: hidden; }
 body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
@@ -55,6 +74,7 @@ button { cursor: pointer; }
   position: relative;
   z-index: 10;
 }
+.header-actions { display: flex; align-items: center; gap: 7px; }
 .brand-title { font-size: 22px; font-weight: 950; letter-spacing: 1px; }
 .brand-sub { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.4px; margin-top: 2px; }
 .icon-btn {
@@ -88,6 +108,28 @@ button { cursor: pointer; }
   border-radius: 10px;
   min-height: 44px;
 }
+.install-card {
+  position: fixed;
+  left: 10px;
+  right: 10px;
+  bottom: max(10px, env(safe-area-inset-bottom));
+  z-index: 60;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.install-card strong, .install-card span { display: block; }
+.install-card span { margin-top: 2px; color: var(--muted); font-size: 11px; font-weight: 700; }
+.install-card button { min-height: 38px; border-radius: 10px; border: 1px solid var(--border); padding: 0 12px; color: var(--text); background: var(--panel-2); font-weight: 900; }
+.install-card .install-primary { border: 0; color: #fff; background: var(--green); }
 .screen { min-height: 0; height: 100%; }
 #setup-screen {
   display: none;
@@ -117,7 +159,7 @@ button { cursor: pointer; }
 }
 .player-grid {
   display: grid;
-  grid-template-columns: repeat(var(--player-count, 4), minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
 }
 .player-card {
@@ -129,11 +171,28 @@ button { cursor: pointer; }
   grid-template-rows: auto 1fr auto;
   align-items: center;
   text-align: center;
+  color: #fff;
   background: linear-gradient(180deg, var(--player-color, var(--panel-2)), var(--player-color-dark, var(--panel)));
 }
 .player-card.active {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(243,178,60,0.24) inset;
+  border: 3px solid var(--gold);
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 5px var(--gold),
+    0 10px 22px color-mix(in srgb, var(--gold) 38%, transparent);
+  transform: translateY(-1px);
+}
+.player-card.active .player-meta {
+  display: inline-flex;
+  justify-self: center;
+  align-items: center;
+  min-height: 21px;
+  border-radius: 999px;
+  padding: 0 10px;
+  color: #111827;
+  background: var(--gold);
+  font-size: 11px;
+  letter-spacing: 1px;
 }
 .player-card.winner {
   border-color: var(--green);
@@ -166,7 +225,7 @@ button { cursor: pointer; }
 }
 .player-meta {
   font-size: 10px;
-  color: var(--muted);
+  color: rgba(255,255,255,0.8);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   font-weight: 900;
@@ -177,6 +236,10 @@ button { cursor: pointer; }
   gap: 10px;
   align-items: center;
   padding: 10px 12px;
+}
+.turn-card.current-turn {
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 24%, transparent) inset;
 }
 .turn-label {
   font-size: 10px;
@@ -400,7 +463,7 @@ button { cursor: pointer; }
 }
 .setup-player-row {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto auto;
   gap: 8px;
   align-items: center;
   min-height: 48px;
@@ -409,6 +472,8 @@ button { cursor: pointer; }
   border-radius: 12px;
   padding: 7px 8px;
 }
+.setup-order-actions { display: flex; gap: 4px; }
+.setup-order-actions button { min-width: 32px; padding: 0; }
 .setup-player-row.starter { border-color: var(--gold); }
 .setup-player-order {
   width: 30px;
@@ -468,6 +533,17 @@ button { cursor: pointer; }
   font-weight: 950;
   margin-bottom: 6px;
 }
+.rules-list { display: grid; gap: 9px; padding-left: 18px; margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.theme-sections { display: grid; gap: 14px; margin-top: 12px; }
+.theme-section h3 { margin-bottom: 8px; color: var(--muted); font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase; }
+.theme-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.theme-choice { min-height: 64px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px; align-items: center; border: 2px solid var(--border); border-radius: 12px; padding: 8px; color: var(--text); background: var(--panel-2); text-align: left; }
+.theme-choice[aria-pressed="true"] { border-color: var(--gold); }
+.theme-choice strong, .theme-choice small { display: block; }
+.theme-choice small { color: var(--muted); font-size: 10px; margin-top: 2px; }
+.swatches { display: flex; gap: 3px; }
+.swatches i { width: 10px; height: 29px; border-radius: 5px; display: block; }
+.toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 130; color: #fff; background: var(--green); border-radius: 999px; padding: 10px 14px; font-size: 13px; font-weight: 900; box-shadow: var(--shadow); }
 .modal p.sub {
   color: var(--muted);
   font-size: 13px;
@@ -532,7 +608,7 @@ button { cursor: pointer; }
 #colors-modal-wrap .modal-actions {
   position: sticky;
   bottom: 0;
-  background: linear-gradient(180deg, rgba(20,34,51,0), rgba(20,34,51,0.96) 22%, rgba(20,34,51,1));
+  background: linear-gradient(180deg, transparent, var(--panel) 22%, var(--panel));
   padding-top: 10px;
   margin-top: 2px;
 }
@@ -578,18 +654,25 @@ button { cursor: pointer; }
   .score-grid { gap: 5px; }
   .score-btn { min-height: 46px; font-size: 22px; border-radius: 9px; }
   .score-readout { min-height: 46px; font-size: 30px; }
+  .theme-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
-<body>
+<body data-theme="classic">
 <div id="app">
   <div class="header">
     <div>
       <div class="brand-title">Score7</div>
       <div class="brand-sub">Flip7 scoreboard</div>
     </div>
-    <button class="icon-btn" id="menu-btn">...</button>
+    <div class="header-actions">
+      <button class="icon-btn hidden" id="install-shortcut" type="button" aria-label="Install Score7" title="Install Score7">+</button>
+      <button class="icon-btn" id="menu-btn" type="button" aria-label="Open menu">...</button>
+    </div>
     <div class="dropdown" id="menu-dropdown">
+      <button data-action="install">Install App</button>
+      <button data-action="rules">Rules</button>
+      <button data-action="themes">Themes</button>
       <button data-action="players">Players</button>
       <button data-action="setup">Setup Game</button>
       <button data-action="share">Share</button>
@@ -597,6 +680,15 @@ button { cursor: pointer; }
       <button data-action="restart">New Game</button>
       <button data-action="about">About</button>
     </div>
+  </div>
+
+  <div class="install-card hidden" id="install-card">
+    <div>
+      <strong>Install Score7</strong>
+      <span>Keep this scorekeeper on your home screen.</span>
+    </div>
+    <button class="install-primary" id="install-card-btn" type="button">Install</button>
+    <button id="dismiss-install-btn" type="button" aria-label="Dismiss install prompt">x</button>
   </div>
 
   <div id="setup-screen" class="screen">
@@ -628,7 +720,7 @@ button { cursor: pointer; }
   <div id="game-screen" class="screen">
     <div class="player-grid" id="scoreboard"></div>
 
-    <div class="turn-card card">
+    <div class="turn-card card current-turn">
       <div style="min-width:0;">
         <div class="turn-label">Current Player</div>
         <div class="turn-name" id="turn-name">Set up players</div>
@@ -697,6 +789,37 @@ button { cursor: pointer; }
   </div>
 </div>
 
+<div class="modal-wrap" id="rules-modal-wrap">
+  <div class="modal">
+    <h2>How To Play Flip 7</h2>
+    <div class="note">Draw cards to build points, but a duplicate number busts your round.</div>
+    <ul class="rules-list" id="rules-list"></ul>
+    <div class="modal-actions">
+      <button class="btn-primary" data-close="rules-modal-wrap">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-wrap" id="themes-modal-wrap">
+  <div class="modal">
+    <h2>Choose A Look</h2>
+    <div class="theme-sections" id="theme-sections"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" data-close="themes-modal-wrap">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-wrap" id="install-modal-wrap">
+  <div class="modal">
+    <h2>Install Score7</h2>
+    <div class="note" id="install-help">Use your browser menu and choose Install app or Add to Home Screen.</div>
+    <div class="modal-actions">
+      <button class="btn-primary" data-close="install-modal-wrap">Close</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-wrap" id="colors-modal-wrap">
   <div class="modal">
     <h2>Player Color</h2>
@@ -710,17 +833,61 @@ button { cursor: pointer; }
   </div>
 </div>
 
+<div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 (() => {
-  const APP_VERSION = '2026.05.24.07';
+  const APP_VERSION = '2026.05.25.05';
   const STORAGE_KEY = 'score7_v1';
+  const THEME_KEY = 'score7_theme';
+  const INSTALL_DISMISSED_KEY = 'score7_install_dismissed';
   const DEFAULT_TARGET_SCORE = 200;
   const DEFAULT_PLAYER_COLORS = ['#E8332A', '#1A6FE8', '#4FAF5F', '#D08015', '#9448CC', '#D13C82'];
   const KEYPAD_VALUES = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '00', '0', 'back'];
+  const FLIP7_RULES = [
+    'Draw number cards one at a time and add their values to your round score.',
+    'If you draw a number already in front of you, you bust and score zero for the round.',
+    'Stop before busting to bank your round points, or keep drawing for a bigger score.',
+    'Special cards can modify a turn; apply their printed effect before banking.',
+    'Collect seven different number cards in one round for a Flip 7 bonus of 15 points.',
+    'The first player to reach the target score wins.'
+  ];
+  const THEME_GROUPS = [
+    { name: 'Table Classics', items: [
+      ['classic', 'Rozzle Classic', 'Teal and ivory', ['#123c38', '#d9aa43', '#c85d49']],
+      ['evergreen', 'Evergreen Brass', 'Deep green', ['#18443b', '#c49a3a', '#d56945']],
+      ['cranberry', 'Cranberry Oak', 'Warm red', ['#8d2638', '#d6a94f', '#b7583f']],
+      ['harbor', 'Harbor Slate', 'Blue-green', ['#1d5b6c', '#d3a94d', '#cf765e']],
+      ['moss', 'Moss Linen', 'Soft green', ['#315d36', '#c9a33a', '#b96a4d']]
+    ]},
+    { name: 'Soft Color', items: [
+      ['amethyst', 'Amethyst Dusk', 'Purple', ['#4b3b8f', '#c7a451', '#b85f82']],
+      ['ember', 'Ember Clay', 'Terracotta', ['#8a4629', '#e0a43a', '#c75c45']],
+      ['sage', 'Sage Mint', 'Fresh green', ['#16725f', '#cbbd4a', '#c96b60']],
+      ['plum', 'Royal Plum', 'Plum', ['#3c2b72', '#c9a046', '#b85b77']],
+      ['rose', 'Rose Quartz', 'Pink', ['#b84f82', '#d7b85a', '#d46673']],
+      ['lavender', 'Lavender Mist', 'Violet', ['#7a5cc7', '#d6b85a', '#d474ad']],
+      ['desert', 'Desert Sun', 'Ochre', ['#a85f2a', '#d8a735', '#c96a4d']],
+      ['sky', 'Sky Candy', 'Cyan', ['#36a9c9', '#d8c75c', '#c970a6']]
+    ]},
+    { name: 'Dark Tables', items: [
+      ['polar', 'Polar Night', 'Navy', ['#7eb6d9', '#d8c76a', '#d98274']],
+      ['teal-night', 'Teal Nocturne', 'Dark teal', ['#2dd4bf', '#f4c95d', '#ef7d66']],
+      ['violet-night', 'Violet Dusk', 'Dark violet', ['#9b6fe8', '#d8b95a', '#d66e9d']],
+      ['cobalt', 'Cobalt Night', 'Dark blue', ['#44b3d8', '#d8bd5b', '#d97373']],
+      ['emerald-night', 'Emerald Night', 'Dark green', ['#78c95f', '#d6d85b', '#d9795c']],
+      ['jade', 'Jade Terminal', 'Dark jade', ['#54c982', '#b8d96a', '#d57966']],
+      ['citrus', 'Citrus Grove', 'Lime', ['#3b8c46', '#c9d94a', '#df8b4f']]
+    ]}
+  ];
 
   const els = {
     menuBtn: document.getElementById('menu-btn'),
     menuDropdown: document.getElementById('menu-dropdown'),
+    installShortcut: document.getElementById('install-shortcut'),
+    installCard: document.getElementById('install-card'),
+    installCardBtn: document.getElementById('install-card-btn'),
+    dismissInstallBtn: document.getElementById('dismiss-install-btn'),
     setupScreen: document.getElementById('setup-screen'),
     gameScreen: document.getElementById('game-screen'),
     playersScreen: document.getElementById('players-screen'),
@@ -751,6 +918,12 @@ button { cursor: pointer; }
     playAgainBtn: document.getElementById('play-again-btn'),
     aboutModalWrap: document.getElementById('about-modal-wrap'),
     appVersionLabel: document.getElementById('app-version-label'),
+    rulesList: document.getElementById('rules-list'),
+    themesModalWrap: document.getElementById('themes-modal-wrap'),
+    themeSections: document.getElementById('theme-sections'),
+    installHelp: document.getElementById('install-help'),
+    toast: document.getElementById('toast'),
+    themeColorMeta: document.getElementById('theme-color-meta'),
     colorsModalWrap: document.getElementById('colors-modal-wrap'),
     playerColorPreview: document.getElementById('player-color-preview'),
     colorHexReadout: document.getElementById('color-hex-readout'),
@@ -778,12 +951,29 @@ button { cursor: pointer; }
     };
   }
 
+  const storageFallback = {};
+  function readStorage(area, key) {
+    try {
+      return window[area].getItem(key);
+    } catch {
+      return storageFallback[`${area}:${key}`] || null;
+    }
+  }
+  function writeStorage(area, key, value) {
+    storageFallback[`${area}:${key}`] = value;
+    try {
+      window[area].setItem(key, value);
+    } catch {}
+  }
+
   let state = loadState();
+  let installPrompt = null;
+  let toastTimer = null;
   if (els.appVersionLabel) els.appVersionLabel.textContent = `Version ${APP_VERSION}`;
 
   function loadState() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = readStorage('localStorage', STORAGE_KEY);
       if (!raw) return defaultState();
       const merged = deepMerge(defaultState(), JSON.parse(raw));
       normalizeState(merged);
@@ -821,7 +1011,7 @@ button { cursor: pointer; }
   let saveTimer = null;
   function persist() {
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => localStorage.setItem(STORAGE_KEY, JSON.stringify(state)), 120);
+    saveTimer = setTimeout(() => writeStorage('localStorage', STORAGE_KEY, JSON.stringify(state)), 120);
   }
   function setState(mutator) {
     mutator(state);
@@ -886,11 +1076,78 @@ button { cursor: pointer; }
   function closeAllMenus() { els.menuDropdown.classList.remove('open'); }
   function showModal(id) { document.getElementById(id).classList.add('open'); }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  function themeId() {
+    const saved = readStorage('localStorage', THEME_KEY) || 'classic';
+    return THEME_GROUPS.some(group => group.items.some(([id]) => id === saved)) ? saved : 'classic';
+  }
+  function applyTheme(id) {
+    const next = THEME_GROUPS.some(group => group.items.some(([theme]) => theme === id)) ? id : 'classic';
+    document.body.dataset.theme = next;
+    writeStorage('localStorage', THEME_KEY, next);
+    const colors = { classic: '#123c38', evergreen: '#18443b', cranberry: '#8d2638', harbor: '#1d5b6c', moss: '#315d36', amethyst: '#4b3b8f', ember: '#8a4629', sage: '#16725f', plum: '#3c2b72', rose: '#b84f82', lavender: '#7a5cc7', desert: '#a85f2a', sky: '#36a9c9', polar: '#151d25', 'teal-night': '#102723', 'violet-night': '#251b36', cobalt: '#0d2438', 'emerald-night': '#142313', jade: '#07150c', citrus: '#3b8c46' };
+    els.themeColorMeta.setAttribute('content', colors[next] || '#123c38');
+    renderThemes();
+  }
+  function renderThemes() {
+    const active = themeId();
+    els.themeSections.innerHTML = THEME_GROUPS.map(group => `
+      <section class="theme-section">
+        <h3>${group.name}</h3>
+        <div class="theme-grid">
+          ${group.items.map(([id, label, note, colors]) => `
+            <button class="theme-choice" type="button" data-theme="${id}" aria-pressed="${id === active}">
+              <span><strong>${label}</strong><small>${note}</small></span>
+              <span class="swatches" aria-hidden="true">${colors.map(color => `<i style="background:${color}"></i>`).join('')}</span>
+            </button>
+          `).join('')}
+        </div>
+      </section>
+    `).join('');
+  }
+  function renderRules() {
+    els.rulesList.innerHTML = FLIP7_RULES.map(rule => `<li>${rule}</li>`).join('');
+  }
+  function showToast(message) {
+    clearTimeout(toastTimer);
+    els.toast.textContent = message;
+    els.toast.classList.remove('hidden');
+    toastTimer = setTimeout(() => els.toast.classList.add('hidden'), 2200);
+  }
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  }
+  function updateInstallUI() {
+    const dismissed = readStorage('sessionStorage', INSTALL_DISMISSED_KEY) === 'true';
+    const showCard = !state.inGame && !isStandalone() && !dismissed;
+    els.installCard.classList.toggle('hidden', !showCard);
+    const installMenu = els.menuDropdown.querySelector('[data-action="install"]');
+    if (installMenu) installMenu.classList.toggle('hidden', isStandalone());
+  }
+  function installHelpText() {
+    const ua = navigator.userAgent.toLowerCase();
+    if (/iphone|ipad|ipod/.test(ua)) return 'On iPhone or iPad: tap the Safari Share button, then choose Add to Home Screen.';
+    if (/android/.test(ua)) return "On Android: open Chrome's menu, then choose Install app or Add to Home screen.";
+    return 'Open your browser menu and choose Install app or Add to Home Screen.';
+  }
+  async function installApp() {
+    closeAllMenus();
+    if (installPrompt) {
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      els.installShortcut.classList.add('hidden');
+      updateInstallUI();
+      return;
+    }
+    els.installHelp.textContent = installHelpText();
+    showModal('install-modal-wrap');
+  }
   function showScreen(screen) {
     state.screen = screen;
     els.setupScreen.style.display = screen === 'setup' ? 'block' : 'none';
     els.gameScreen.style.display = screen === 'game' ? 'grid' : 'none';
     els.playersScreen.style.display = screen === 'players' ? 'block' : 'none';
+    updateInstallUI();
     persist();
   }
   function scoreValue() {
@@ -979,8 +1236,12 @@ button { cursor: pointer; }
         <li class="setup-player-row ${index === state.setupDraft.starterIndex ? 'starter' : ''}">
           <span class="setup-player-order">${index + 1}</span>
           <strong>${escapeHtml(name)}</strong>
+          <span class="setup-order-actions">
+            <button type="button" data-setup-move="up" data-index="${index}" ${index === 0 ? 'disabled' : ''} aria-label="Move ${escapeHtml(name)} earlier">↑</button>
+            <button type="button" data-setup-move="down" data-index="${index}" ${index === state.setupDraft.players.length - 1 ? 'disabled' : ''} aria-label="Move ${escapeHtml(name)} later">↓</button>
+          </span>
           <button class="starter-btn ${index === state.setupDraft.starterIndex ? 'active' : ''}" type="button" data-starter-index="${index}">${index === state.setupDraft.starterIndex ? 'Starts' : 'Start'}</button>
-          <button type="button" data-setup-remove="${index}">x</button>
+          <button type="button" data-setup-remove="${index}" aria-label="Remove ${escapeHtml(name)}">x</button>
         </li>
       `).join('');
     }
@@ -1035,6 +1296,24 @@ button { cursor: pointer; }
       s.playerHistory = s.playerHistory.filter(player => player.toLocaleLowerCase() !== key);
     });
   }
+  async function shareApp() {
+    const url = `${window.location.origin}${window.location.pathname}`;
+    const appShare = { title: 'Score7', text: 'Score7 is a Flip7 scoreboard.', url };
+    if (navigator.share) {
+      try {
+        await navigator.share(appShare);
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast('Score7 link copied');
+    } catch {
+      showToast('Share is not available here');
+    }
+  }
   function shareResults() {
     const rows = state.players.map((name, i) => ({ name, score: state.scores[i] })).sort((a, b) => b.score - a.score);
     const winner = getWinnerIndex();
@@ -1048,7 +1327,7 @@ button { cursor: pointer; }
     ].join('\n');
     const shareData = { title: 'Score7 results', text };
     if (navigator.share) navigator.share(shareData).catch(() => {});
-    else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => alert('Scores copied.'));
+    else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => showToast('Scores copied'));
     else prompt('Copy these scores:', text);
   }
   function openWinModal() {
@@ -1112,7 +1391,7 @@ button { cursor: pointer; }
         <button class="player-color-btn" style="--player-color:${color};" type="button" data-player-color="${index}" aria-label="Change ${escapeHtml(name)} color" title="Change color"></button>
         <div class="player-name">${escapeHtml(name)}</div>
         <div class="player-score">${state.scores[index]}</div>
-        <div class="player-meta">${index === state.starterIndex ? 'Starter' : index === state.activeIndex && winner < 0 ? 'Turn' : `${Math.max(0, state.targetScore - state.scores[index])} to win`}</div>
+        <div class="player-meta">${index === state.activeIndex && winner < 0 ? 'Your Turn' : index === state.starterIndex ? 'Starter' : `${Math.max(0, state.targetScore - state.scores[index])} to win`}</div>
       </div>
     `; }).join('');
   }
@@ -1171,14 +1450,21 @@ button { cursor: pointer; }
     if (!btn) return;
     const action = btn.dataset.action;
     closeAllMenus();
+    if (action === 'install') installApp();
+    if (action === 'rules') showModal('rules-modal-wrap');
+    if (action === 'themes') showModal('themes-modal-wrap');
     if (action === 'players') showScreen('players');
     if (action === 'setup') beginNewGameSetup();
-    if (action === 'share') shareResults();
+    if (action === 'share') shareApp();
     if (action === 'undo') undoLastScore();
     if (action === 'restart') beginNewGameSetup();
     if (action === 'about') showModal('about-modal-wrap');
   });
   document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(btn.dataset.close)));
+  els.themeSections.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-theme]');
+    if (btn) applyTheme(btn.dataset.theme);
+  });
   els.scoreGrid.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-keypad]');
     if (!btn) return;
@@ -1211,6 +1497,19 @@ button { cursor: pointer; }
     state.setupDraft.targetScore = els.setupTargetScore.value;
   });
   els.setupPlayerList.addEventListener('click', (e) => {
+    const moveBtn = e.target.closest('[data-setup-move]');
+    if (moveBtn) {
+      const from = Number(moveBtn.dataset.index);
+      const to = moveBtn.dataset.setupMove === 'up' ? from - 1 : from + 1;
+      if (to >= 0 && to < state.setupDraft.players.length) {
+        const starterName = state.setupDraft.players[state.setupDraft.starterIndex];
+        const [player] = state.setupDraft.players.splice(from, 1);
+        state.setupDraft.players.splice(to, 0, player);
+        state.setupDraft.starterIndex = state.setupDraft.players.indexOf(starterName);
+        renderSetup();
+      }
+      return;
+    }
     const starterBtn = e.target.closest('[data-starter-index]');
     if (starterBtn) {
       state.setupDraft.starterIndex = Number(starterBtn.dataset.starterIndex);
@@ -1237,7 +1536,28 @@ button { cursor: pointer; }
   });
   els.playAgainBtn.addEventListener('click', resetGame);
   els.shareResultsBtn.addEventListener('click', shareResults);
+  els.installShortcut.addEventListener('click', installApp);
+  els.installCardBtn.addEventListener('click', installApp);
+  els.dismissInstallBtn.addEventListener('click', () => {
+    writeStorage('sessionStorage', INSTALL_DISMISSED_KEY, 'true');
+    updateInstallUI();
+  });
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    installPrompt = event;
+    els.installShortcut.classList.remove('hidden');
+    updateInstallUI();
+  });
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null;
+    els.installShortcut.classList.add('hidden');
+    writeStorage('sessionStorage', INSTALL_DISMISSED_KEY, 'true');
+    updateInstallUI();
+    showToast('Score7 installed');
+  });
 
+  renderRules();
+  applyTheme(themeId());
   render();
   if (!state.inGame) openSetupScreen();
   else showScreen('game');
@@ -1246,7 +1566,7 @@ button { cursor: pointer; }
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=2026052407', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('./service-worker.js?v=2026052505', { updateViaCache: 'none' })
       .then(registration => registration.update().catch(() => {}))
       .catch(error => console.warn('Score7 service worker registration failed.', error));
   });

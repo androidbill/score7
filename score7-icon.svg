@@ -1,16 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
-  <title id="title">Score7 icon</title>
-  <desc id="desc">A dark app icon with a gold seven and stacked card shapes.</desc>
-  <defs>
-    <clipPath id="shape"><rect width="256" height="256" rx="56" ry="56"/></clipPath>
-  </defs>
-  <g clip-path="url(#shape)">
-    <rect width="256" height="256" fill="#111827"/>
-    <rect x="48" y="42" width="126" height="168" rx="18" fill="#213047" stroke="#ffffff" stroke-opacity="0.12" stroke-width="8"/>
-    <rect x="78" y="30" width="126" height="168" rx="18" fill="#2a3d58" stroke="#ffffff" stroke-opacity="0.16" stroke-width="8"/>
-    <rect x="108" y="58" width="100" height="150" rx="18" fill="#37a7d8" opacity="0.95"/>
-    <text x="158" y="164" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="112" font-weight="900" fill="#ffffff">7</text>
-    <circle cx="82" cy="184" r="22" fill="#f3b23c"/>
-  </g>
-  <rect x="4" y="4" width="248" height="248" rx="52" ry="52" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="108" fill="#123c38"/>
+  <rect x="76" y="62" width="360" height="388" rx="44" fill="#fffdf7"/>
+  <path d="M123 112h266v52H123z" fill="#d9aa43"/>
+  <path d="M128 203h118v34H128zm0 59h118v34H128zm0 59h118v34H128z" fill="#123c38" opacity=".16"/>
+  <path d="M288 197h85v29l-54 157h-51l51-144h-31z" fill="#c85d49"/>
+  <circle cx="148" cy="219" r="9" fill="#123c38"/>
+  <circle cx="148" cy="278" r="9" fill="#123c38"/>
+  <circle cx="148" cy="337" r="9" fill="#123c38"/>
 </svg>
