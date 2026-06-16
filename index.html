@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Score7" />
-<link rel="manifest" href="./manifest.webmanifest?v=2026052508" />
-<link rel="icon" href="./score7-icon.svg?v=2026052508" type="image/svg+xml" />
-<script src="./iro.min.js?v=2026052508"></script>
+<link rel="manifest" href="./manifest.webmanifest?v=2026061601" />
+<link rel="icon" href="./score7-icon.svg?v=2026061601" type="image/svg+xml" />
+<script src="./iro.min.js?v=2026061601"></script>
 <style>
 :root {
   --bg: #111827;
@@ -173,6 +173,7 @@ button { cursor: pointer; }
   text-align: center;
   color: #fff;
   background: linear-gradient(180deg, var(--player-color, var(--panel-2)), var(--player-color-dark, var(--panel)));
+  cursor: pointer;
 }
 .player-card.active {
   border: 3px solid var(--gold);
@@ -723,8 +724,8 @@ button { cursor: pointer; }
         <input id="setup-target-score" type="number" inputmode="numeric" min="1" max="9999" value="200" />
       </label>
       <div>
-        <div class="section-title" style="margin-bottom:7px;">Turn Order</div>
-        <ol class="setup-player-list" id="setup-player-list"></ol>
+        <div class="section-title" style="margin-bottom:7px;">Players</div>
+        <div class="setup-player-list" id="setup-player-list"></div>
       </div>
       <button class="setup-start-btn" id="start-game-btn" type="button">Start Game</button>
     </div>
@@ -735,7 +736,7 @@ button { cursor: pointer; }
 
     <div class="turn-card card current-turn">
       <div style="min-width:0;">
-        <div class="turn-label">Current Player</div>
+        <div class="turn-label">Selected Player</div>
         <div class="turn-name" id="turn-name">Set up players</div>
       </div>
       <div class="round-pill" id="round-label">Round 1</div>
@@ -851,7 +852,7 @@ button { cursor: pointer; }
 
 <script>
 (() => {
-  const APP_VERSION = '2026.05.25.08';
+  const APP_VERSION = '2026.06.16.01';
   const STORAGE_KEY = 'score7_v1';
   const THEME_KEY = 'score7_theme';
   const INSTALL_DISMISSED_KEY = 'score7_install_dismissed';
@@ -1197,7 +1198,6 @@ button { cursor: pointer; }
         playedAt: new Date().toISOString()
       });
       s.currentScore = '0';
-      s.activeIndex = (playerIndex + 1) % s.players.length;
     });
     if (getWinnerIndex() >= 0) openWinModal();
   }
@@ -1212,7 +1212,7 @@ button { cursor: pointer; }
       if (!last) return;
       s.scores[last.playerIndex] = Math.max(0, s.scores[last.playerIndex] - last.value);
       s.activeIndex = last.playerIndex;
-      s.currentScore = String(last.value);
+      s.currentScore = '0';
     });
     closeModal('win-modal-wrap');
   }
@@ -1243,19 +1243,13 @@ button { cursor: pointer; }
     renderPlayerHistoryOptions();
     els.setupTargetScore.value = String(state.setupDraft.targetScore || DEFAULT_TARGET_SCORE);
     if (!state.setupDraft.players.length) {
-      els.setupPlayerList.innerHTML = `<li class="note">Add at least two players to begin.</li>`;
+      els.setupPlayerList.innerHTML = `<div class="note">Add at least two players to begin.</div>`;
     } else {
       els.setupPlayerList.innerHTML = state.setupDraft.players.map((name, index) => `
-        <li class="setup-player-row ${index === state.setupDraft.starterIndex ? 'starter' : ''}">
-          <span class="setup-player-order">${index + 1}</span>
+        <div class="setup-player-row">
           <strong>${escapeHtml(name)}</strong>
-          <span class="setup-order-actions">
-            <button type="button" data-setup-move="up" data-index="${index}" ${index === 0 ? 'disabled' : ''} aria-label="Move ${escapeHtml(name)} earlier">↑</button>
-            <button type="button" data-setup-move="down" data-index="${index}" ${index === state.setupDraft.players.length - 1 ? 'disabled' : ''} aria-label="Move ${escapeHtml(name)} later">↓</button>
-          </span>
-          <button class="starter-btn ${index === state.setupDraft.starterIndex ? 'active' : ''}" type="button" data-starter-index="${index}">${index === state.setupDraft.starterIndex ? 'Starts' : 'Start'}</button>
           <button type="button" data-setup-remove="${index}" aria-label="Remove ${escapeHtml(name)}">x</button>
-        </li>
+        </div>
       `).join('');
     }
     els.addSetupPlayerBtn.disabled = state.setupDraft.players.length >= 6;
@@ -1279,9 +1273,9 @@ button { cursor: pointer; }
       names.forEach((name, index) => {
         if (!s.playerColors[name]) s.playerColors[name] = DEFAULT_PLAYER_COLORS[index % DEFAULT_PLAYER_COLORS.length];
       });
-      s.starterIndex = clamp(s.setupDraft.starterIndex, 0, names.length - 1);
+      s.starterIndex = 0;
       s.targetScore = clamp(Number(s.setupDraft.targetScore) || DEFAULT_TARGET_SCORE, 1, 9999);
-      s.activeIndex = s.starterIndex;
+      s.activeIndex = 0;
       s.scores = names.map(() => 0);
       s.history = [];
       s.currentScore = '0';
@@ -1400,11 +1394,11 @@ button { cursor: pointer; }
     els.scoreboard.innerHTML = state.players.map((name, index) => {
       const color = getPlayerColor(name, index);
       return `
-      <div class="card player-card ${index === state.activeIndex && winner < 0 ? 'active' : ''} ${index === winner ? 'winner' : ''}" style="--player-color:${color}; --player-color-dark:${darken(color)};">
+      <div class="card player-card ${index === state.activeIndex && winner < 0 ? 'active' : ''} ${index === winner ? 'winner' : ''}" data-player-index="${index}" style="--player-color:${color}; --player-color-dark:${darken(color)};">
         <button class="player-color-btn" style="--player-color:${color};" type="button" data-player-color="${index}" aria-label="Change ${escapeHtml(name)} color" title="Change color"></button>
         <div class="player-name">${escapeHtml(name)}</div>
         <div class="player-score">${state.scores[index]}</div>
-        <div class="player-meta">${index === state.activeIndex && winner < 0 ? 'Your Turn' : index === state.starterIndex ? 'Starter' : `${Math.max(0, state.targetScore - state.scores[index])} to win`}</div>
+        <div class="player-meta">${index === state.activeIndex && winner < 0 ? 'Selected' : `${Math.max(0, state.targetScore - state.scores[index])} to win`}</div>
       </div>
     `; }).join('');
   }
@@ -1445,7 +1439,7 @@ button { cursor: pointer; }
     renderHistory();
     const active = state.players[state.activeIndex] || 'Set up players';
     els.turnName.textContent = getWinnerIndex() >= 0 ? 'Game over' : active;
-    els.roundLabel.textContent = `Round ${currentRound()}`;
+    els.roundLabel.textContent = `Target ${state.targetScore}`;
     els.undoBtn.disabled = !state.history.length;
   }
   function render() {
@@ -1488,7 +1482,13 @@ button { cursor: pointer; }
   els.undoBtn.addEventListener('click', undoLastScore);
   els.scoreboard.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-player-color]');
-    if (btn) openColorPicker(Number(btn.dataset.playerColor));
+    if (btn) {
+      openColorPicker(Number(btn.dataset.playerColor));
+      return;
+    }
+    const card = e.target.closest('[data-player-index]');
+    if (!card) return;
+    setState(s => { s.activeIndex = Number(card.dataset.playerIndex); });
   });
   els.closePlayersBtn.addEventListener('click', () => {
     if (state.inGame) showScreen('game');
@@ -1509,25 +1509,6 @@ button { cursor: pointer; }
     state.setupDraft.targetScore = els.setupTargetScore.value;
   });
   els.setupPlayerList.addEventListener('click', (e) => {
-    const moveBtn = e.target.closest('[data-setup-move]');
-    if (moveBtn) {
-      const from = Number(moveBtn.dataset.index);
-      const to = moveBtn.dataset.setupMove === 'up' ? from - 1 : from + 1;
-      if (to >= 0 && to < state.setupDraft.players.length) {
-        const starterName = state.setupDraft.players[state.setupDraft.starterIndex];
-        const [player] = state.setupDraft.players.splice(from, 1);
-        state.setupDraft.players.splice(to, 0, player);
-        state.setupDraft.starterIndex = state.setupDraft.players.indexOf(starterName);
-        renderSetup();
-      }
-      return;
-    }
-    const starterBtn = e.target.closest('[data-starter-index]');
-    if (starterBtn) {
-      state.setupDraft.starterIndex = Number(starterBtn.dataset.starterIndex);
-      renderSetup();
-      return;
-    }
     const removeBtn = e.target.closest('[data-setup-remove]');
     if (!removeBtn) return;
     const index = Number(removeBtn.dataset.setupRemove);
@@ -1578,7 +1559,7 @@ button { cursor: pointer; }
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=2026052508', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('./service-worker.js?v=2026061601', { updateViaCache: 'none' })
       .then(registration => registration.update().catch(() => {}))
       .catch(error => console.warn('Score7 service worker registration failed.', error));
   });

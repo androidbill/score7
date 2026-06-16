@@ -1,10 +1,10 @@
-const CACHE_NAME = 'score7-2026052508';
+const CACHE_NAME = 'score7-2026061601';
 const APP_SHELL = [
   './',
-  './index.html?v=2026052508',
-  './manifest.webmanifest?v=2026052508',
-  './score7-icon.svg?v=2026052508',
-  './iro.min.js?v=2026052508'
+  './index.html?v=2026061601',
+  './manifest.webmanifest?v=2026061601',
+  './score7-icon.svg?v=2026061601',
+  './iro.min.js?v=2026061601'
 ];
 
 self.addEventListener('install', (event) => {
@@ -43,7 +43,7 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (event.request.mode === 'navigate') {
-    event.respondWith(networkFirst(event.request, './index.html?v=2026052508'));
+    event.respondWith(networkFirst(event.request, './index.html?v=2026061601'));
     return;
   }
 
