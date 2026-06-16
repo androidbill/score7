@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Score7" />
-<link rel="manifest" href="./manifest.webmanifest?v=2026061601" />
-<link rel="icon" href="./score7-icon.svg?v=2026061601" type="image/svg+xml" />
-<script src="./iro.min.js?v=2026061601"></script>
+<link rel="manifest" href="./manifest.webmanifest?v=2026061602" />
+<link rel="icon" href="./score7-icon.svg?v=2026061602" type="image/svg+xml" />
+<script src="./iro.min.js?v=2026061602"></script>
 <style>
 :root {
   --bg: #111827;
@@ -852,7 +852,7 @@ button { cursor: pointer; }
 
 <script>
 (() => {
-  const APP_VERSION = '2026.06.16.01';
+  const APP_VERSION = '2026.06.16.02';
   const STORAGE_KEY = 'score7_v1';
   const THEME_KEY = 'score7_theme';
   const INSTALL_DISMISSED_KEY = 'score7_install_dismissed';
@@ -1202,12 +1202,14 @@ button { cursor: pointer; }
     if (getWinnerIndex() >= 0) openWinModal();
   }
   function undoLastScore() {
-    if (!state.history.length) {
-      alert('No score to undo.');
+    const playerIndex = state.activeIndex;
+    const historyIndex = state.history.map(entry => entry.playerIndex).lastIndexOf(playerIndex);
+    if (historyIndex < 0) {
+      alert(`No score to undo for ${state.players[playerIndex] || 'this player'}.`);
       return;
     }
     setState(s => {
-      const last = s.history.pop();
+      const [last] = s.history.splice(historyIndex, 1);
       if (!last) return;
       s.scores[last.playerIndex] = Math.max(0, s.scores[last.playerIndex] - last.value);
       s.activeIndex = last.playerIndex;
@@ -1439,7 +1441,7 @@ button { cursor: pointer; }
     const active = state.players[state.activeIndex] || 'Set up players';
     els.turnName.textContent = getWinnerIndex() >= 0 ? 'Game over' : active;
     els.roundLabel.textContent = `Target ${state.targetScore}`;
-    els.undoBtn.disabled = !state.history.length;
+    els.undoBtn.disabled = !state.history.some(entry => entry.playerIndex === state.activeIndex);
   }
   function render() {
     renderGame();
@@ -1558,7 +1560,7 @@ button { cursor: pointer; }
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=2026061601', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('./service-worker.js?v=2026061602', { updateViaCache: 'none' })
       .then(registration => registration.update().catch(() => {}))
       .catch(error => console.warn('Score7 service worker registration failed.', error));
   });
